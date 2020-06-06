@@ -1,0 +1,124 @@
+{% extends 'soldado/index.html' %}
+<!-- template para el formulario del soldado-->
+
+{% block content %}
+
+<center><h3>Tableta min-zinc</h3></center>
+
+<form method="post"   class="form-group">
+    {% csrf_token %}
+    <center>
+    <br>
+    <div class="form-row">
+    <div class="col">
+     <label >Nombre:</label>
+    </div>
+    <div class="col">
+        {{form.nombre}}
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="col">
+     <label >Estado:</label>
+    </div>
+    <div class="col">
+        {{form.estado}}
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="col">
+     <label >Habilidad:</label>
+    </div>
+    <div class="col">
+        {{form2.habilidadA}}
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="col">
+     <label >Tipo:</label>
+    </div>
+    <div class="col">
+        {{form2.tipoA}}
+    </div>
+    </div> 
+    <div class="form-row">
+    <div class="col">
+     <label >Nombre armamento: </label>
+    </div>
+    <div class="col">
+        {{form2.nombreA}}
+    </div>
+    </div> 
+    </p>
+    
+    <button type="submit"  class="btn btn-primary">guardar</button>
+    </center>   
+</form>
+<script>
+ $(document).ready(function() {
+            $("[name='tipoA']").on("change", tipos);
+            $("[name='habilidadA']").on("change", habilidades);
+            habilidades();
+           
+        });
+//captura la habilidad y el tipo seleccionados y retorna el template para las armas
+function tipos(){
+    var id = $("[name='tipoA'] option:selected").val();
+    var id2 = $("[name='habilidadA'] option:selected" ).val();
+        
+    if(!(id2) == ''){
+        $.ajax({
+        type:'POST',
+        url:'{% url "ajax_armas"  %}',
+        data:{
+            id_tipos:id,
+            id_habilidades:id2,
+            action: 'post',
+            "csrfmiddlewaretoken" : "{{csrf_token}}"
+        },
+        success:function(resultado){
+          $("[name='nombreA']").html(resultado);
+      },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText); 
+    }
+    });
+
+    }else{
+       restaurar('nombreA');
+    }
+    return false;
+}
+//captura la habilidad seleccionada y retorna el template para los tipos
+function habilidades(){     
+    var id = $("[name='habilidadA'] option:selected").val();
+    if(!(id) == ''){
+    $.ajax({
+        type:'POST',
+        url:'{% url "ajax_tipo"  %}',
+        data:{
+            id_habilidad:id,
+            action: 'post',
+            "csrfmiddlewaretoken" : "{{csrf_token}}"
+        },
+        success:function(resultado){
+            $("[name='tipoA']").html(resultado);
+            restaurar('nombreA');
+        },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText); 
+    }
+    });
+    }
+    return false;
+}
+
+function restaurar(nombre){
+    var option = "<option value=''>---------</option>";
+    $("[name='"+nombre+"']").html(option);
+}
+</script>   
+    
+    
+
+{% endblock %}

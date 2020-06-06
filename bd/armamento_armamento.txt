@@ -1,0 +1,5 @@
+"id","nombreA","puntajeDannoA","habilidadA_id","tipoA_id"
+1,"ALAS",12,1,1
+2,"CUCHILLO",150,2,2
+3,"PISTOLA",360,2,1
+4,"ESPADAS",150,2,3

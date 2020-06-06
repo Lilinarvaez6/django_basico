@@ -1,0 +1,4 @@
+"id","nombreT"
+1,"CUERPO"
+2,"MEDIA"
+3,"LARGA"

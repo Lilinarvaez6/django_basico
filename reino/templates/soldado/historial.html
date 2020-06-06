@@ -1,0 +1,37 @@
+{% extends 'soldado/index.html' %}
+<!-- template para el historial-->
+
+
+{% block content %}
+
+<center><h3>Historial de {{form.nombre}}</h3></center>
+<table  class="table table-bordered">
+	<thead>
+	<tr>
+		<td>Habilidad</td>
+		<td>Tipo armamento</td>
+		<td>Armamento</td>
+		<td>Puntaje de daño</td>
+	</tr>	
+	</thead>
+	<tbody>
+	{% if form2 %}
+	{% for armamento in form2 %}
+	<tr>
+		<td>{{armamento.habilidadA.nombreH}}</td>
+		<td>{{armamento.tipoA.nombreT}}</td>
+		<td>{{armamento.nombreA}}</td>
+		<td>{{armamento.puntajeDannoA}}</td>
+		
+
+	</tr>
+	{% endfor %}
+	{% else %}
+	<tr>
+		<td colspan="4"><center>No hay registros</center></td>
+	</tr>
+	{% endif %}
+	
+	</tbody>
+</table>
+{% endblock %}

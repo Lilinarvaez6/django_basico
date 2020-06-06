@@ -1,0 +1,4 @@
+"id","nombre"
+1,"bien"
+2,"herido"
+3,"muerto"

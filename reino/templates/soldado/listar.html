@@ -1,0 +1,42 @@
+{% extends 'soldado/index.html' %}
+<!-- template para listar los soldados-->
+
+{% block content %}
+<center><h3>Soldados</h3></center>
+<table  class="table table-bordered">
+	<thead>
+	<tr>
+		<td>Username</td>
+		<td>Estado</td>
+		<td>Habilidad</td>
+		<td>Tipo armamento</td>
+		<td>Armamento</td>
+		<td>Puntaje de daño</td>
+		<td>Acciones</td>
+	</tr>	
+	</thead>
+	<tbody>
+	{% if object_list%}
+	{% for soldado in object_list %}
+	<tr>
+		<td>{{soldado.nombre}}</td>
+		<td>{{soldado.estado}}</td>
+		<td>{{soldado.armamento.habilidadA.nombreH}}</td>
+		<td>{{soldado.armamento.tipoA.nombreT}}</td>
+		<td>{{soldado.armamento.nombreA}}</td>
+		<td>{{soldado.armamento.puntajeDannoA}}</td>
+		<td><button type="button" class="btn btn-warning" onclick="location.href='{% url 'editar' soldado.id  %}'">Editar</button>
+		<button type="button" class="btn btn-primary" onclick="location.href='{% url 'historial' soldado.id  %}'">Historial</button>
+		</td>
+
+	</tr>
+	{% endfor %}
+	{% else %}
+	<tr>
+		<td colspan="4"><center>No hay registros</center></td>
+	</tr>
+	{% endif %}
+	
+	</tbody>
+</table>
+{% endblock %}
